@@ -47,7 +47,7 @@ exports["default"] = App;
 
 /***/ }),
 
-/***/ 263:
+/***/ 348:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -56,35 +56,81 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var jsx_runtime_1 = __webpack_require__(893);
-var Card = function Card(_ref) {
+var MenuItem = function MenuItem(_ref) {
   var icon = _ref.icon,
     label = _ref.label;
   return (0, jsx_runtime_1.jsxs)("div", {
+    className: "main-menu__item",
     children: [(0, jsx_runtime_1.jsx)("img", {
+      className: "main-menu__item__image",
       src: icon,
       alt: label
     }), (0, jsx_runtime_1.jsx)("div", {
+      className: "main-menu__item__text",
       children: label
     })]
   });
 };
-var menuItems = [{
-  icon: '',
+exports["default"] = MenuItem;
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.menuItems = void 0;
+var phone_handset_png_1 = __importDefault(__webpack_require__(705));
+var play_icon_png_1 = __importDefault(__webpack_require__(366));
+var telegram_logo_png_1 = __importDefault(__webpack_require__(254));
+var toolset_icon_png_1 = __importDefault(__webpack_require__(482));
+exports.menuItems = [{
+  icon: telegram_logo_png_1["default"],
   label: 'Оставить заявку'
 }, {
-  icon: '',
+  icon: phone_handset_png_1["default"],
   label: 'Связаться'
 }, {
-  icon: '',
+  icon: play_icon_png_1["default"],
   label: 'Поиграться'
 }, {
-  icon: '',
+  icon: toolset_icon_png_1["default"],
   label: 'Наши услуги'
 }];
+
+/***/ }),
+
+/***/ 263:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+var jsx_runtime_1 = __webpack_require__(893);
+var const_1 = __webpack_require__(155);
+var MenuItem_1 = __importDefault(__webpack_require__(348));
+__webpack_require__(958);
 var MainMenu = function MainMenu() {
   return (0, jsx_runtime_1.jsx)("div", {
-    children: menuItems.map(function (item, index) {
-      return (0, jsx_runtime_1.jsx)(Card, {
+    className: "main-menu",
+    children: const_1.menuItems.map(function (item, index) {
+      return (0, jsx_runtime_1.jsx)(MenuItem_1["default"], {
         icon: item.icon,
         label: item.label
       }, index);
@@ -92,6 +138,15 @@ var MainMenu = function MainMenu() {
   });
 };
 exports["default"] = MainMenu;
+
+/***/ }),
+
+/***/ 958:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -593,6 +648,34 @@ if (true) {
 } else {}
 
 
+/***/ }),
+
+/***/ 705:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "ec9e09eac03c2a9e4ee9.png";
+
+/***/ }),
+
+/***/ 366:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "fd6e55b8cffc034dbdc7.png";
+
+/***/ }),
+
+/***/ 254:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "90f81f9a1a0e76931f15.png";
+
+/***/ }),
+
+/***/ 482:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "d544ddcf6c351d3e93b1.png";
+
 /***/ })
 
 /******/ 	});
@@ -622,6 +705,18 @@ if (true) {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -631,6 +726,26 @@ if (true) {
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
