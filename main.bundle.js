@@ -94,7 +94,6 @@ var jsx_runtime_1 = __webpack_require__(893);
 var classnames_1 = __importDefault(__webpack_require__(184));
 var clip_png_1 = __importDefault(__webpack_require__(259));
 var style_module_scss_1 = __importDefault(__webpack_require__(326));
-console.log('classes: ', style_module_scss_1["default"]);
 var FileInput = function FileInput(_ref) {
   var onSelect = _ref.onSelect,
     className = _ref.className,
@@ -192,6 +191,7 @@ var ContactForm = function ContactForm() {
     WebApp.MainButton.show();
     WebApp.MainButton.color = '#aef';
     WebApp.MainButton.setText('I am ain button');
+    WebApp.sendData('I am data');
     return function () {
       WebApp.BackButton.offClick(buttonNavigation);
       WebApp.BackButton.hide();
