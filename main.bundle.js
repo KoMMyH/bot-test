@@ -244,9 +244,14 @@ var ContactForm = function ContactForm() {
       children: ["Data: ", (0, jsx_runtime_1.jsx)("div", {
         children: JSON.stringify(WebApp.themeParams)
       })]
-    }), (0, jsx_runtime_1.jsx)("div", {
+    }), (0, jsx_runtime_1.jsxs)("div", {
+      style: {
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column'
+      },
       className: "check",
-      children: "Check styles"
+      children: ["Init data: ", WebApp.initData, "Init data unsafe: ", JSON.stringify(WebApp.initDataUnsafe)]
     })]
   });
 };
