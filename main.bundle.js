@@ -344,12 +344,19 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var jsx_runtime_1 = __webpack_require__(893);
+var react_1 = __webpack_require__(294);
 var react_router_dom_1 = __webpack_require__(818);
 var const_1 = __webpack_require__(155);
 var MenuItem_1 = __importDefault(__webpack_require__(348));
 __webpack_require__(958);
 var MainMenu = function MainMenu() {
   var navigate = (0, react_router_dom_1.useNavigate)();
+  (0, react_1.useEffect)(function () {
+    window.Telegram.WebApp.BackButton.show();
+    return function () {
+      window.Telegram.WebApp.BackButton.hide();
+    };
+  }, []);
   return (0, jsx_runtime_1.jsx)("div", {
     className: "main-menu",
     children: const_1.menuItems.map(function (item, index) {
