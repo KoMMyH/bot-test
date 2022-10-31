@@ -383,13 +383,10 @@ var WebApp = window.Telegram.WebApp;
 var useTgBackButton = function useTgBackButton(callback) {
   (0, react_1.useEffect)(function () {
     WebApp.BackButton.show();
-  }, []);
-  (0, react_1.useEffect)(function () {
-    WebApp.BackButton.onClick(callback);
     return function () {
-      WebApp.BackButton.offClick(callback);
+      return WebApp.BackButton.hide();
     };
-  }, [callback]);
+  }, []);
   return {
     isVisible: WebApp.BackButton.isVisible,
     show: WebApp.BackButton.show,
@@ -426,14 +423,10 @@ var useTgMainButton = function useTgMainButton(_ref) {
       text_color: textColor
     });
     WebApp.MainButton.show();
-    return function () {};
-  }, []);
-  (0, react_1.useEffect)(function () {
-    WebApp.MainButton.onClick(onClick);
     return function () {
-      WebApp.MainButton.onClick(onClick);
+      WebApp.MainButton.hide();
     };
-  }, [onClick]);
+  }, []);
   return WebApp.MainButton;
 };
 exports.useTgMainButton = useTgMainButton;
