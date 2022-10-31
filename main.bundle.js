@@ -176,6 +176,12 @@ exports["default"] = TextInput;
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -194,10 +200,14 @@ var tgBackButton_1 = __webpack_require__(557);
 var tgMainButton_1 = __webpack_require__(285);
 __webpack_require__(400);
 var ContactForm = function ContactForm() {
+  var _ref = (0, react_1.useState)(0),
+    _ref2 = _slicedToArray(_ref, 2),
+    count = _ref2[0],
+    setCount = _ref2[1];
   var navigate = (0, react_router_dom_1.useNavigate)();
-  var _ref = (0, react_hook_form_1.useForm)(),
-    register = _ref.register,
-    handleSubmit = _ref.handleSubmit;
+  var _ref3 = (0, react_hook_form_1.useForm)(),
+    register = _ref3.register,
+    handleSubmit = _ref3.handleSubmit;
   var formRef = (0, react_1.useRef)(null);
   var navigateBack = (0, react_1.useCallback)(function () {
     navigate('/');
@@ -214,6 +224,14 @@ var ContactForm = function ContactForm() {
   var handleFormSubmit = handleSubmit(function (data) {
     console.log('data: ', data);
   });
+  (0, react_1.useEffect)(function () {
+    console.log('mount');
+    setCount(count + 1);
+    return function () {
+      setCount(count + 1);
+      console.log('unmount');
+    };
+  }, []);
   return (0, jsx_runtime_1.jsxs)("form", {
     className: "contact-form",
     onSubmit: handleFormSubmit,
@@ -221,6 +239,11 @@ var ContactForm = function ContactForm() {
     children: [(0, jsx_runtime_1.jsxs)("div", {
       className: "contact-form_group",
       children: [(0, jsx_runtime_1.jsx)("div", {
+        style: {
+          color: '#fff'
+        },
+        children: count
+      }), (0, jsx_runtime_1.jsx)("div", {
         className: "contact-form_title",
         children: "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E \u0432\u0430\u0441"
       }), (0, jsx_runtime_1.jsx)(TextInput_1["default"], _objectSpread({
@@ -344,19 +367,12 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var jsx_runtime_1 = __webpack_require__(893);
-var react_1 = __webpack_require__(294);
 var react_router_dom_1 = __webpack_require__(818);
 var const_1 = __webpack_require__(155);
 var MenuItem_1 = __importDefault(__webpack_require__(348));
 __webpack_require__(958);
 var MainMenu = function MainMenu() {
   var navigate = (0, react_router_dom_1.useNavigate)();
-  (0, react_1.useEffect)(function () {
-    window.Telegram.WebApp.BackButton.show();
-    return function () {
-      window.Telegram.WebApp.BackButton.hide();
-    };
-  }, []);
   return (0, jsx_runtime_1.jsx)("div", {
     className: "main-menu",
     children: const_1.menuItems.map(function (item, index) {
@@ -380,6 +396,7 @@ exports["default"] = MainMenu;
 "use strict";
 
 
+var _excluded = ["onClick", "offClick"];
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 Object.defineProperty(exports, "__esModule", ({
@@ -388,11 +405,11 @@ Object.defineProperty(exports, "__esModule", ({
 exports.useTgBackButton = void 0;
 var react_1 = __webpack_require__(294);
 var tgWebApp_1 = __webpack_require__(43);
-var _tgWebApp_1$WebApp$Ba = tgWebApp_1.WebApp.BackButton,
-  onClickListener = _tgWebApp_1$WebApp$Ba.onClick,
-  offClickListener = _tgWebApp_1$WebApp$Ba.offClick,
-  backButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ba, ["onClick", "offClick"]);
 var useTgBackButton = function useTgBackButton(callback) {
+  var _tgWebApp_1$WebApp$Ba = tgWebApp_1.WebApp.BackButton,
+    onClickListener = _tgWebApp_1$WebApp$Ba.onClick,
+    offClickListener = _tgWebApp_1$WebApp$Ba.offClick,
+    backButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ba, _excluded);
   (0, react_1.useEffect)(function () {
     tgWebApp_1.WebApp.BackButton.show();
     tgWebApp_1.WebApp.BackButton.isVisible = true;
@@ -418,6 +435,7 @@ exports.useTgBackButton = useTgBackButton;
 "use strict";
 
 
+var _excluded = ["onClick", "offClick"];
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 Object.defineProperty(exports, "__esModule", ({
@@ -426,10 +444,6 @@ Object.defineProperty(exports, "__esModule", ({
 exports.useTgMainButton = void 0;
 var react_1 = __webpack_require__(294);
 var tgWebApp_1 = __webpack_require__(43);
-var _tgWebApp_1$WebApp$Ma = tgWebApp_1.WebApp.MainButton,
-  onClickListener = _tgWebApp_1$WebApp$Ma.onClick,
-  offClickListener = _tgWebApp_1$WebApp$Ma.offClick,
-  mainButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ma, ["onClick", "offClick"]);
 var useTgMainButton = function useTgMainButton(_ref) {
   var text = _ref.text,
     _ref$textColor = _ref.textColor,
@@ -437,6 +451,10 @@ var useTgMainButton = function useTgMainButton(_ref) {
     _ref$color = _ref.color,
     color = _ref$color === void 0 ? tgWebApp_1.WebApp.themeParams.button_color : _ref$color,
     onClick = _ref.onClick;
+  var _tgWebApp_1$WebApp$Ma = tgWebApp_1.WebApp.MainButton,
+    onClickListener = _tgWebApp_1$WebApp$Ma.onClick,
+    offClickListener = _tgWebApp_1$WebApp$Ma.offClick,
+    mainButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ma, _excluded);
   (0, react_1.useEffect)(function () {
     tgWebApp_1.WebApp.MainButton.setText(text);
     tgWebApp_1.WebApp.MainButton.show();
@@ -447,6 +465,7 @@ var useTgMainButton = function useTgMainButton(_ref) {
       is_active: true
     });
     return function () {
+      console.log('asd');
       tgWebApp_1.WebApp.MainButton.hide();
     };
   }, []);
@@ -456,6 +475,7 @@ var useTgMainButton = function useTgMainButton(_ref) {
       offClickListener(onClick);
     };
   }, [onClick]);
+  console.log('data: ', mainButtonProps);
   return mainButtonProps;
 };
 exports.useTgMainButton = useTgMainButton;
@@ -8177,18 +8197,6 @@ module.exports = __webpack_require__.p + "d544ddcf6c351d3e93b1.png";
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -8207,22 +8215,7 @@ module.exports = __webpack_require__.p + "d544ddcf6c351d3e93b1.png";
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 		__webpack_require__.p = "/";
 /******/ 	})();
 /******/ 	
 /************************************************************************/
