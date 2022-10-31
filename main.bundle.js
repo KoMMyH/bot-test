@@ -145,16 +145,19 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var jsx_runtime_1 = __webpack_require__(893);
+var react_1 = __webpack_require__(294);
 var classnames_1 = __importDefault(__webpack_require__(184));
 var style_module_scss_1 = __importDefault(__webpack_require__(185));
-var TextInput = function TextInput(_ref) {
+var TextInput = (0, react_1.forwardRef)(function (_ref, ref) {
   var className = _ref.className,
     props = _objectWithoutProperties(_ref, _excluded);
-  return (0, jsx_runtime_1.jsx)("input", _objectSpread({
+  return (0, jsx_runtime_1.jsx)("input", _objectSpread(_objectSpread({
     className: (0, classnames_1["default"])(style_module_scss_1["default"].textInput, className),
     autoComplete: "off"
-  }, props));
-};
+  }, props), {}, {
+    ref: ref
+  }));
+});
 exports["default"] = TextInput;
 
 /***/ }),
@@ -189,6 +192,7 @@ var react_router_dom_1 = __webpack_require__(818);
 var TextInput_1 = __importDefault(__webpack_require__(972));
 var FileInput_1 = __importDefault(__webpack_require__(454));
 var tgBackButton_1 = __webpack_require__(557);
+var tgMainButton_1 = __webpack_require__(285);
 __webpack_require__(400);
 var ContactForm = function ContactForm() {
   var _ref = (0, react_1.useState)(0),
@@ -208,12 +212,13 @@ var ContactForm = function ContactForm() {
     (_formRef$current = formRef.current) === null || _formRef$current === void 0 ? void 0 : _formRef$current.submit();
   }, []);
   (0, tgBackButton_1.useTgBackButton)(navigateBack);
+  (0, tgMainButton_1.useTgMainButton)({
+    onClick: submitForm,
+    text: 'Отправить'
+  });
   var handleFormSubmit = handleSubmit(function (data) {
     console.log('data: ', data);
   });
-  (0, react_1.useEffect)(function () {
-    console.log('handleFormSubmit: ', handleSubmit);
-  }, [handleSubmit]);
   return (0, jsx_runtime_1.jsxs)("form", {
     className: "contact-form",
     onSubmit: handleFormSubmit,
@@ -389,6 +394,48 @@ var useTgBackButton = function useTgBackButton(callback) {
   };
 };
 exports.useTgBackButton = useTgBackButton;
+
+/***/ }),
+
+/***/ 285:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.useTgMainButton = void 0;
+var react_1 = __webpack_require__(294);
+var WebApp = window.Telegram.WebApp;
+var useTgMainButton = function useTgMainButton(_ref) {
+  var text = _ref.text,
+    _ref$textColor = _ref.textColor,
+    textColor = _ref$textColor === void 0 ? WebApp.themeParams.button_text_color : _ref$textColor,
+    _ref$color = _ref.color,
+    color = _ref$color === void 0 ? WebApp.themeParams.button_color : _ref$color,
+    onClick = _ref.onClick;
+  (0, react_1.useEffect)(function () {
+    WebApp.MainButton.setText(text);
+    WebApp.MainButton.setParams({
+      color: color,
+      text_color: textColor
+    });
+    WebApp.MainButton.show();
+    return function () {
+      WebApp.MainButton.hide();
+    };
+  }, []);
+  (0, react_1.useEffect)(function () {
+    WebApp.MainButton.onClick(onClick);
+    return function () {
+      WebApp.MainButton.offClick(onClick);
+    };
+  }, [onClick]);
+  return WebApp.MainButton;
+};
+exports.useTgMainButton = useTgMainButton;
 
 /***/ }),
 
