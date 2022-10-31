@@ -189,7 +189,6 @@ var react_router_dom_1 = __webpack_require__(818);
 var TextInput_1 = __importDefault(__webpack_require__(972));
 var FileInput_1 = __importDefault(__webpack_require__(454));
 var tgBackButton_1 = __webpack_require__(557);
-var tgMainButton_1 = __webpack_require__(285);
 __webpack_require__(400);
 var ContactForm = function ContactForm() {
   var _ref = (0, react_1.useState)(0),
@@ -209,10 +208,6 @@ var ContactForm = function ContactForm() {
     (_formRef$current = formRef.current) === null || _formRef$current === void 0 ? void 0 : _formRef$current.submit();
   }, []);
   (0, tgBackButton_1.useTgBackButton)(navigateBack);
-  (0, tgMainButton_1.useTgMainButton)({
-    onClick: submitForm,
-    text: 'Отправить'
-  });
   var handleFormSubmit = handleSubmit(function (data) {
     console.log('data: ', data);
   });
@@ -249,12 +244,6 @@ var ContactForm = function ContactForm() {
       }, register('projectDescription'))), (0, jsx_runtime_1.jsx)(FileInput_1["default"], {
         className: "contact-form_file-input"
       })]
-    }), (0, jsx_runtime_1.jsx)("button", {
-      type: "button",
-      onClick: function onClick() {
-        setCounter(counter + 1);
-      },
-      children: "Click"
     })]
   });
 };
@@ -387,6 +376,12 @@ var useTgBackButton = function useTgBackButton(callback) {
       return WebApp.BackButton.hide();
     };
   }, []);
+  (0, react_1.useEffect)(function () {
+    WebApp.BackButton.onClick(callback);
+    return function () {
+      WebApp.BackButton.offClick(callback);
+    };
+  }, [callback]);
   return {
     isVisible: WebApp.BackButton.isVisible,
     show: WebApp.BackButton.show,
@@ -394,42 +389,6 @@ var useTgBackButton = function useTgBackButton(callback) {
   };
 };
 exports.useTgBackButton = useTgBackButton;
-
-/***/ }),
-
-/***/ 285:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.useTgMainButton = void 0;
-var react_1 = __webpack_require__(294);
-var WebApp = window.Telegram.WebApp;
-var useTgMainButton = function useTgMainButton(_ref) {
-  var text = _ref.text,
-    _ref$textColor = _ref.textColor,
-    textColor = _ref$textColor === void 0 ? WebApp.themeParams.button_text_color : _ref$textColor,
-    _ref$color = _ref.color,
-    color = _ref$color === void 0 ? WebApp.themeParams.button_color : _ref$color,
-    onClick = _ref.onClick;
-  (0, react_1.useEffect)(function () {
-    WebApp.MainButton.setText(text);
-    WebApp.MainButton.setParams({
-      color: color,
-      text_color: textColor
-    });
-    WebApp.MainButton.show();
-    return function () {
-      WebApp.MainButton.hide();
-    };
-  }, []);
-  return WebApp.MainButton;
-};
-exports.useTgMainButton = useTgMainButton;
 
 /***/ }),
 
