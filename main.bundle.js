@@ -8215,7 +8215,7 @@ module.exports = __webpack_require__.p + "d544ddcf6c351d3e93b1.png";
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/";
+/******/ 		__webpack_require__.p = "/bot-test/";
 /******/ 	})();
 /******/ 	
 /************************************************************************/
