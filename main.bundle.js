@@ -22,7 +22,7 @@ __webpack_require__(293);
 var App_1 = __importDefault(__webpack_require__(277));
 var rootElem = document.querySelector('#root');
 var root = (0, client_1.createRoot)(rootElem);
-root.render((0, jsx_runtime_1.jsx)(react_router_dom_1.HashRouter, {
+root.render((0, jsx_runtime_1.jsx)(react_router_dom_1.BrowserRouter, {
   children: (0, jsx_runtime_1.jsx)(App_1["default"], {})
 }));
 
