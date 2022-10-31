@@ -388,6 +388,7 @@ var _tgWebApp_1$WebApp$Ba = tgWebApp_1.WebApp.BackButton,
 var useTgBackButton = function useTgBackButton(callback) {
   (0, react_1.useEffect)(function () {
     tgWebApp_1.WebApp.BackButton.show();
+    tgWebApp_1.WebApp.BackButton.isVisible = true;
     return function () {
       return tgWebApp_1.WebApp.BackButton.hide();
     };
@@ -431,11 +432,13 @@ var useTgMainButton = function useTgMainButton(_ref) {
     onClick = _ref.onClick;
   (0, react_1.useEffect)(function () {
     tgWebApp_1.WebApp.MainButton.setText(text);
+    tgWebApp_1.WebApp.MainButton.show();
     tgWebApp_1.WebApp.MainButton.setParams({
       color: color,
-      text_color: textColor
+      text_color: textColor,
+      is_visible: true,
+      is_active: true
     });
-    tgWebApp_1.WebApp.MainButton.show();
     return function () {
       tgWebApp_1.WebApp.MainButton.hide();
     };
