@@ -56,11 +56,16 @@ var App = function App() {
       timeout: 300,
       children: (0, jsx_runtime_1.jsxs)(react_router_dom_1.Routes, {
         children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.Route, {
-          path: "/*",
+          path: "/",
           element: (0, jsx_runtime_1.jsx)(MainMenu_1["default"], {})
         }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, {
           path: "/contact_form",
           element: (0, jsx_runtime_1.jsx)(ContactForm_1["default"], {})
+        }), (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, {
+          path: "*",
+          element: (0, jsx_runtime_1.jsx)(react_router_dom_1.Navigate, {
+            to: "/"
+          })
         })]
       })
     }, location.pathname)
@@ -201,8 +206,8 @@ var ContactForm = function ContactForm() {
     var _formRef$current;
     (_formRef$current = formRef.current) === null || _formRef$current === void 0 ? void 0 : _formRef$current.submit();
   }, []);
-  (0, tgBackButton_1.useTgBackButton)(navigateBack);
-  (0, tgMainButton_1.useTgMainButton)({
+  var backData = (0, tgBackButton_1.useTgBackButton)(navigateBack);
+  var mainData = (0, tgMainButton_1.useTgMainButton)({
     onClick: submitForm,
     text: 'Отправить'
   });
@@ -239,6 +244,16 @@ var ContactForm = function ContactForm() {
       }, register('projectDescription'))), (0, jsx_runtime_1.jsx)(FileInput_1["default"], {
         className: "contact-form_file-input"
       })]
+    }), (0, jsx_runtime_1.jsxs)("div", {
+      style: {
+        color: 'blue'
+      },
+      children: ["Back data: ", JSON.stringify(backData)]
+    }), (0, jsx_runtime_1.jsxs)("div", {
+      style: {
+        color: 'red'
+      },
+      children: ["Main data: ", JSON.stringify(mainData)]
     })]
   });
 };
