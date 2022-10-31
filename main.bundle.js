@@ -434,7 +434,7 @@ var useTgMainButton = function useTgMainButton(_ref) {
     return function () {
       tgWebApp_1.WebApp.MainButton.hide();
     };
-  }, []);
+  });
   (0, react_1.useEffect)(function () {
     onClickListener(onClick);
     return function () {
