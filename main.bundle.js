@@ -368,30 +368,32 @@ exports["default"] = MainMenu;
 "use strict";
 
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.useTgBackButton = void 0;
 var react_1 = __webpack_require__(294);
-var WebApp = window.Telegram.WebApp;
+var tgWebApp_1 = __webpack_require__(43);
+var _tgWebApp_1$WebApp$Ba = tgWebApp_1.WebApp.BackButton,
+  onClickListener = _tgWebApp_1$WebApp$Ba.onClick,
+  offClickListener = _tgWebApp_1$WebApp$Ba.offClick,
+  backButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ba, ["onClick", "offClick"]);
 var useTgBackButton = function useTgBackButton(callback) {
   (0, react_1.useEffect)(function () {
-    WebApp.BackButton.show();
+    tgWebApp_1.WebApp.BackButton.show();
     return function () {
-      return WebApp.BackButton.hide();
+      return tgWebApp_1.WebApp.BackButton.hide();
     };
   }, []);
   (0, react_1.useEffect)(function () {
-    WebApp.BackButton.onClick(callback);
+    onClickListener(callback);
     return function () {
-      WebApp.BackButton.offClick(callback);
+      offClickListener(callback);
     };
   }, [callback]);
-  return {
-    isVisible: WebApp.BackButton.isVisible,
-    show: WebApp.BackButton.show,
-    hide: WebApp.BackButton.hide
-  };
+  return backButtonProps;
 };
 exports.useTgBackButton = useTgBackButton;
 
@@ -403,39 +405,59 @@ exports.useTgBackButton = useTgBackButton;
 "use strict";
 
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.useTgMainButton = void 0;
 var react_1 = __webpack_require__(294);
-var WebApp = window.Telegram.WebApp;
+var tgWebApp_1 = __webpack_require__(43);
+var _tgWebApp_1$WebApp$Ma = tgWebApp_1.WebApp.MainButton,
+  onClickListener = _tgWebApp_1$WebApp$Ma.onClick,
+  offClickListener = _tgWebApp_1$WebApp$Ma.offClick,
+  mainButtonProps = _objectWithoutProperties(_tgWebApp_1$WebApp$Ma, ["onClick", "offClick"]);
 var useTgMainButton = function useTgMainButton(_ref) {
   var text = _ref.text,
     _ref$textColor = _ref.textColor,
-    textColor = _ref$textColor === void 0 ? WebApp.themeParams.button_text_color : _ref$textColor,
+    textColor = _ref$textColor === void 0 ? tgWebApp_1.WebApp.themeParams.button_text_color : _ref$textColor,
     _ref$color = _ref.color,
-    color = _ref$color === void 0 ? WebApp.themeParams.button_color : _ref$color,
+    color = _ref$color === void 0 ? tgWebApp_1.WebApp.themeParams.button_color : _ref$color,
     onClick = _ref.onClick;
   (0, react_1.useEffect)(function () {
-    WebApp.MainButton.setText(text);
-    WebApp.MainButton.setParams({
+    tgWebApp_1.WebApp.MainButton.setText(text);
+    tgWebApp_1.WebApp.MainButton.setParams({
       color: color,
       text_color: textColor
     });
-    WebApp.MainButton.show();
+    tgWebApp_1.WebApp.MainButton.show();
     return function () {
-      WebApp.MainButton.hide();
+      tgWebApp_1.WebApp.MainButton.hide();
     };
   }, []);
   (0, react_1.useEffect)(function () {
-    WebApp.MainButton.onClick(onClick);
+    onClickListener(onClick);
     return function () {
-      WebApp.MainButton.offClick(onClick);
+      offClickListener(onClick);
     };
   }, [onClick]);
-  return WebApp.MainButton;
+  return mainButtonProps;
 };
 exports.useTgMainButton = useTgMainButton;
+
+/***/ }),
+
+/***/ 43:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.WebApp = void 0;
+exports.WebApp = window.Telegram.WebApp;
 
 /***/ }),
 
